@@ -25,7 +25,7 @@ const postProducto = async(req, res = response) =>{
     console.log(body)
     try {
         await producto.save()
-        mensaje = 'Usuario registrado exitosamente'
+        mensaje = 'Producto registrado exitosamente'
     } catch (error) {
         mensaje = error
     }
@@ -36,25 +36,43 @@ const postProducto = async(req, res = response) =>{
    
 }
 
-const putProducto = async(req, res = response) =>{
-    const body = req.body
-     console.log(body)
+const putProducto = async (req, res = response) => {
+    const body = req.body;
+    console.log(body);
 
-    let mensaje = ''
+    let mensaje = '';
 
     try {
-            await Producto.findOneAndUpdate({_id: body._id}, {nombre:body.nombre, descripcion:body.descripcion, precio:body.precio, estado:body.estado})
-            mensaje = 'Usuario modificado exitosamente.'
-            
+        if (body.tipoModificacion == 'Unitaria') {
+            await Producto.findOneAndUpdate(
+                { _id: body._id },
+                {
+                    nombre: body.nombre,
+                    descripcion: body.descripcion,
+                    precio: body.precio, 
+                    estado: body.estado
+                }
+            );
+            mensaje = 'Producto modificado exitosamente.';
+        } else {
+            await Producto.updateMany(
+                { _id: body._id },
+                {
+                    nombre: body.nombre,
+                    descripcion: body.descripcion,
+                    precio: body.precio 
+                }
+            );
+            mensaje = 'Producto modificado exitosamente.';
+        }
     } catch (error) {
-        mensaje = error
+        mensaje = error;
     }
-    
+
     res.json({
-        producto:mensaje
-    })
-   
-}
+        mensaje: mensaje
+    });
+};
 
 const deleteProducto = async(req, res = response) =>{
     const body = req.body

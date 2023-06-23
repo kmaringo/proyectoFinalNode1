@@ -25,7 +25,7 @@ const postServicio = async(req, res = response) =>{
     console.log(body)
     try {
         await servicio.save()
-        mensaje = 'Usuario registrado exitosamente'
+        mensaje = 'Servicio registrado exitosamente'
     } catch (error) {
         mensaje = error
     }
@@ -36,25 +36,43 @@ const postServicio = async(req, res = response) =>{
    
 }
 
-const putServicio = async(req, res = response) =>{
-    const body = req.body
-     console.log(body)
+const putServicio = async (req, res = response) => {
+    const body = req.body;
+    console.log(body);
 
-    let mensaje = ''
+    let mensaje = '';
 
     try {
-            await Servicio.findOneAndUpdate({_id:body._id}, {nombre:body.nombre, descripcion:body.descripcion, precio:body.precio, estado:body.estado})
-            mensaje = 'Usuario modificado exitosamente.'
-            
+        if (body.tipoModificacion == 'Unitaria') {
+            await Servicio.findOneAndUpdate(
+                { _id: body._id },
+                {
+                    nombre: body.nombre,
+                    descripcion: body.descripcion,
+                    precio: body.precio, 
+                    estado: body.estado
+                }
+            );
+            mensaje = 'Servicio modificado exitosamente.';
+        } else {
+            await Servicio.updateMany(
+                { _id: body._id },
+                {
+                    nombre: body.nombre,
+                    descripcion: body.descripcion,
+                    precio: body.precio 
+                }
+            );
+            mensaje = 'Servicio modificado exitosamente.';
+        }
     } catch (error) {
-        mensaje = error
+        mensaje = error;
     }
-    
+
     res.json({
-        servicio:mensaje
-    })
-   
-}
+        mensaje: mensaje
+    });
+};
 
 const deleteServicio = async(req, res = response) =>{
     const body = req.body

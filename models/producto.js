@@ -16,7 +16,6 @@ const ProductoSchema = Schema({
     precio: {
         type: Number,
         required: [true, 'El precio es obligatorio'],
-        maxlength: [1000, 'Máximo de precio es $1000']
     },
 
     estado: {

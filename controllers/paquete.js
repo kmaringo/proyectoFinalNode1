@@ -25,7 +25,7 @@ const postPaquete = async(req, res = response) =>{
     console.log(body)
     try {
         await paquete.save()
-        mensaje = 'Usuario registrado exitosamente'
+        mensaje = 'Paquete registrado exitosamente'
     } catch (error) {
         mensaje = error
     }
@@ -36,25 +36,43 @@ const postPaquete = async(req, res = response) =>{
    
 }
 
-const putPaquete = async(req, res = response) =>{
-    const body = req.body
-     console.log(body)
+const putPaquete = async (req, res = response) => {
+    const body = req.body;
+    console.log(body);
 
-    let mensaje = ''
+    let mensaje = '';
 
     try {
-            await Paquete.findOneAndUpdate({_id:body._id}, {nombre:body.nombre, descripcion:body.descripcion, precio:body.precio, estado:body.estado})
-            mensaje = 'Usuario modificado exitosamente.'
-            
+        if (body.tipoModificacion == 'Unitaria') {
+            await Paquete.findOneAndUpdate(
+                { _id: body._id },
+                {
+                    nombre: body.nombre,
+                    descripcion: body.descripcion,
+                    precio: body.precio, 
+                    estado: body.estado
+                }
+            );
+            mensaje = 'Paquete modificado exitosamente.';
+        } else {
+            await Paquete.updateMany(
+                { _id: body._id },
+                {
+                    nombre: body.nombre,
+                    descripcion: body.descripcion,
+                    precio: body.precio 
+                }
+            );
+            mensaje = 'Paquete modificado exitosamente.';
+        }
     } catch (error) {
-        mensaje = error
+        mensaje = error;
     }
-    
+
     res.json({
-        paquete:mensaje
-    })
-   
-}
+        mensaje: mensaje
+    });
+};
 
 const deletePaquete = async(req, res = response) =>{
     const body = req.body
