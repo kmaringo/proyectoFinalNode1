@@ -11,11 +11,24 @@ const DetalleSchema = Schema({
 
     tipo: {
         type: String,
+        validate: {
+            validator: (value) => {
+              const regExpName = /([A-Za-z0-9\s])/;
+              return regExpName.test(value);
+            },
+            message: (value) => `el tipo ${value} no es válido`,
+          },
         required: [true, 'El tipo es obligatorio']
     },
 
     cantidad: {
         type: Number,
+        validate: {
+            validator: (value) => {
+              return value > 0;
+            },
+            message: (value) => `${value} no es una cantidad valida`,
+          },
         required: [true, 'La cantidad es obligatoria']
     },
 })
