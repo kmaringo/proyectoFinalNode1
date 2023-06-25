@@ -3,6 +3,8 @@ const {Schema, model} = require('mongoose')
 
 //Definir la estructura de la colección
 const PaqueteSchema = Schema({
+
+  
     nombre: {
         type: String,
         validate: {
