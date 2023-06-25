@@ -60,7 +60,8 @@ const putProducto = async (req, res = response) => {
                 {
                     nombre: body.nombre,
                     descripcion: body.descripcion,
-                    precio: body.precio 
+                    precio: body.precio, 
+                    estado: body.estado 
                 }
             );
             mensaje = 'Producto modificado exitosamente.';
@@ -70,7 +71,7 @@ const putProducto = async (req, res = response) => {
     }
 
     res.json({
-        mensaje: mensaje
+        producto: mensaje
     });
 };
 

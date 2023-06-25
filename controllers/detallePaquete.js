@@ -12,7 +12,7 @@ const getDetalle = async(req, res=response) => {
     }
 
    res.json({
-        mensaje:mensaje
+        detalle:mensaje
     })
     
 }
@@ -31,7 +31,7 @@ const postDetalle = async(req, res = response) =>{
     }
 
     res.json({
-        mensaje:mensaje
+        mensaje
     })
    
 }
@@ -85,7 +85,7 @@ const deleteDetalle= async(req, res = response) =>{
     }
     
     res.json({
-        mensaje:mensaje
+        detalle:mensaje
     })
    
 }

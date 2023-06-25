@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 
 //Definir la estructura de la colección
 const ProductoSchema = Schema({
+
   nombre: {
     type: String,
     validate: {
@@ -40,8 +41,14 @@ const ProductoSchema = Schema({
 
   estado: {
     type: String,
-    required: [true, "El estado es obigatorio"],
-  },
+    validate: {
+      validator: (value) => {
+        return value === "Activo" || value === "Inactivo";
+      },
+      message: (value) => `${value} no es un estado válido`,
+    },
+    required: [true, "El estado es obligatorio"],
+  }
 });
 
 module.exports = model("Producto", ProductoSchema);

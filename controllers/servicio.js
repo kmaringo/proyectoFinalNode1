@@ -60,7 +60,8 @@ const putServicio = async (req, res = response) => {
                 {
                     nombre: body.nombre,
                     descripcion: body.descripcion,
-                    precio: body.precio 
+                    precio: body.precio,
+                    estado: body.estado
                 }
             );
             mensaje = 'Servicio modificado exitosamente.';

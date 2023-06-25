@@ -60,7 +60,8 @@ const putPaquete = async (req, res = response) => {
                 {
                     nombre: body.nombre,
                     descripcion: body.descripcion,
-                    precio: body.precio 
+                    precio: body.precio, 
+                    estado: body.estado 
                 }
             );
             mensaje = 'Paquete modificado exitosamente.';

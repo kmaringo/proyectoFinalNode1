@@ -40,8 +40,14 @@ const ServicioSchema = Schema({
     
       estado: {
         type: String,
-        required: [true, "El estado es obigatorio"],
-      },
+        validate: {
+          validator: (value) => {
+            return value === "Activo" || value === "Inactivo";
+          },
+          message: (value) => `${value} no es un estado válido`,
+        },
+        required: [true, "El estado es obligatorio"],
+      }
     });
 
 module.exports = model('Servicio', ServicioSchema)
